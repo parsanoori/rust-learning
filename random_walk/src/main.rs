@@ -1,78 +1,103 @@
-use rand::Rng;
+use rand;
 use std::io;
 
-/// Number of simulated walks that are averaged together.
-const NUMBER_OF_SIMS: u32 = 10_000;
+const NUMBER_OF_SIMS: i32 = 1000;
+const BATCH: i32 = 100;
 
 fn get_steps() -> u32 {
     let mut n_str = String::new();
 
     io::stdin()
         .read_line(&mut n_str)
-        .expect("expected valid input");
+        .expect("expetced valid input");
 
-    n_str.trim().parse().expect("expected valid number")
+    let n: u32 = match n_str.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            panic!("expected valid number");
+        }
+    };
+
+    n
 }
 
-/// Simulates one 1D walk: each step is left, right or stay (equal chance).
-/// Returns the final displacement from the origin.
-fn walk_1d(s: u32, rng: &mut impl Rng) -> i32 {
-    let mut pos: i32 = 0;
+fn move_1d(s: u32) -> i32 {
+    let mut disp: i32 = 0;
     for _ in 0..s {
-        match rng.random_range(0..3) {
-            0 => pos -= 1,
-            1 => pos += 1,
-            _ => {}
+        let m = rand::random_range(1..=3);
+        if m == 1 {
+            disp += 1;
+        } else if m == 2 {
+            disp -= 1;
+        } else if m == 3 {
+            // stay
         }
     }
-    pos
+    disp
 }
 
-/// Simulates one 3D walk: each step is +/-x, +/-y, +/-z or stay (equal chance).
-/// Returns the distance from the origin.
-fn walk_3d(s: u32, rng: &mut impl Rng) -> f64 {
-    let (mut x, mut y, mut z) = (0i64, 0i64, 0i64);
+fn simulate_1d(s: u32) -> f32 {
+    let mut sum: f32 = 0.0;
+    for _ in 0..NUMBER_OF_SIMS {
+        sum += move_1d(s).abs() as f32;
+    }
+    sum / (NUMBER_OF_SIMS as f32)
+}
+
+fn move_3d(s: u32) -> f64 {
+    let mut x: i32 = 0;
+    let mut y: i32 = 0;
+    let mut z: i32 = 0;
+
     for _ in 0..s {
-        match rng.random_range(0..7) {
-            0 => x += 1,
-            1 => x -= 1,
-            2 => y += 1,
-            3 => y -= 1,
-            4 => z += 1,
-            5 => z -= 1,
-            _ => {}
+        let m = rand::random_range(1..=7);
+        if m == 1 {
+            x += 1;
+        } else if m == 2 {
+            x -= 1;
+        } else if m == 3 {
+            y += 1;
+        } else if m == 4 {
+            y -= 1;
+        } else if m == 5 {
+            z += 1;
+        } else if m == 6 {
+            z -= 1;
+        } else {
+            // stay
         }
     }
-    ((x * x + y * y + z * z) as f64).sqrt()
+
+    let move_sqrd = x * x + y * y + z * z;
+    let res = (move_sqrd as f64).sqrt();
+    res
 }
 
-/// Average absolute distance from the origin over many 1D walks.
-fn average_1d(s: u32) -> f64 {
-    let mut rng = rand::rng();
-    let sum: f64 = (0..NUMBER_OF_SIMS)
-        .map(|_| walk_1d(s, &mut rng).abs() as f64)
-        .sum();
-    sum / NUMBER_OF_SIMS as f64
-}
-
-/// Average distance from the origin over many 3D walks.
-fn average_3d(s: u32) -> f64 {
-    let mut rng = rand::rng();
-    let sum: f64 = (0..NUMBER_OF_SIMS).map(|_| walk_3d(s, &mut rng)).sum();
-    sum / NUMBER_OF_SIMS as f64
+fn simulate_3d(s: u32) -> f64 {
+    let mut avg: f64 = 0.0;
+    for _ in 0..NUMBER_OF_SIMS / BATCH {
+        let mut sum: f64 = 0.0;
+        for _ in 0..BATCH {
+            let moved = move_3d(s);
+            sum += moved;
+        }
+        let to_add = sum / (BATCH as f64);
+        avg += to_add;
+    }
+    avg / ((NUMBER_OF_SIMS / BATCH) as f64)
 }
 
 fn main() {
     let s = get_steps();
+    let average_1d = simulate_1d(s);
+    let average_3d = simulate_3d(s);
 
     println!(
         "Average disposition of a one dimensional random walk in {} steps is: {:.1} unit",
-        s,
-        average_1d(s)
+        s, average_1d
     );
     println!(
         "Average disposition of a three dimensional random walk in {} steps is: {:.1} unit",
-        s,
-        average_3d(s)
+        s, average_3d
     );
 }
