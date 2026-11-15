@@ -1,0 +1,2 @@
+Average disposition of a one dimensional random walk in 3313 steps is: 37.2 unit
+Average disposition of a three dimensional random walk in 3313 steps is: 48.9 unit

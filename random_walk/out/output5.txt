@@ -1,0 +1,1 @@
+Average disposition of a one dimensional random walk in 2398 steps is: 31.9 unit

@@ -1,0 +1,2 @@
+Average disposition of a one dimensional random walk in 1991 steps is: 28.9 unit
+Average disposition of a three dimensional random walk in 1991 steps is: 38.0 unit
