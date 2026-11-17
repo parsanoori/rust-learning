@@ -9,6 +9,8 @@ Small programs written while learning Rust. Each folder is its own Cargo project
 | [complete_numbers](complete_numbers/) | Functions, loops, ranges | ✅ | 10/10 |
 | [random_walk](random_walk/) | `rand` crate, closures/iterators, floats, simulation | ✅ | 30/30 |
 | [three_circles](three_circles/) | Structs, functions, parsing input, nested conditionals | ✅ | 10/10 |
+| [fast_power](fast_power/) | Modular exponentiation, `u64` arithmetic | ✅ | 25/25 |
+| [gcd](gcd/) | Recursion, Euclid-style GCD | ✅ | 25/25 |
 
 ## Testing
 
@@ -29,3 +31,4 @@ The original test archives (`*.zip`) are git-ignored.
 - Reading input from stdin, parsing with `parse()` and error handling via `match`
 - Functions, structs, borrowing (`&Circle`, `&Point`)
 - Loops, ranges (`a..=b`), integer arithmetic
+- Recursion, modular arithmetic (square-and-multiply)
