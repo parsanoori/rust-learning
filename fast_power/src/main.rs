@@ -26,7 +26,7 @@ fn fast_power(n: u64, mut m: u64) -> u64 {
     let mut n_2p = n;
     while m != 0 {
         if m % 2 == 1 {
-            res = (res * n_2p) % MOD;
+            res *= (res * n_2p) % MOD;
         }
         n_2p = (n_2p * n_2p) % MOD;
         m /= 2;
