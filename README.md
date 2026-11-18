@@ -11,6 +11,7 @@ Small programs written while learning Rust. Each folder is its own Cargo project
 | [three_circles](three_circles/) | Structs, functions, parsing input, nested conditionals | ✅ | 10/10 |
 | [fast_power](fast_power/) | Modular exponentiation, `u64` arithmetic | ✅ | 25/25 |
 | [gcd](gcd/) | Recursion, Euclid-style GCD | ✅ | 25/25 |
+| [good_string](good_string/) | Strings, counting characters, reasoning about a formula | ✅ | 20/20 |
 
 ## Testing
 
