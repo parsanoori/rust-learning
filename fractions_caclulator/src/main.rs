@@ -54,8 +54,21 @@ fn gcd(n: i32, m: i32) -> i32 {
 }
 
 fn simplify(a: i32, b: i32) -> (i32, i32) {
-    let g = gcd(a,b);
-    (a / g, b / g)
+    let mut sign = 1;
+
+    let mut abs_a = a;
+    if a < 0 {
+        abs_a = -a;
+        sign *= -1;
+    }
+    let mut abs_b = b;
+    if b < 0 {
+        abs_b = -b;
+        sign *= -1;
+    }
+ 
+    let g = gcd(abs_a,abs_b);
+    (sign * abs_a / g, abs_b / g)
 }
 
 fn main() {
