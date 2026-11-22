@@ -39,6 +39,25 @@ fn minus(a: i32, b: i32, c: i32, d: i32) -> (i32, i32) {
     (a * d - c * b, b * d)
 }
 
+fn gcd(n: i32, m: i32) -> i32 {
+    if m == 0 {
+        return n;
+    }
+    if n == 0 {
+        return m;
+    }
+    if n < m {
+        return gcd(n, m-n);
+    } else {
+        return gcd(m,n-m);
+    }
+}
+
+fn simplify(a: i32, b: i32) -> (i32, i32) {
+    let g = gcd(a,b);
+    (a / g, b / g)
+}
+
 fn main() {
     let a = get_number();
     let b = get_number();
@@ -54,6 +73,8 @@ fn main() {
         _ => panic!("invalid action bro!"),
     }
 
-    println!("{}/{}", res.0, res.1);
+    let simple_res = simplify(res.0, res.1);
+
+    println!("{}/{}", simple_res.0, simple_res.1);
 
 }
