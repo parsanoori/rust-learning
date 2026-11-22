@@ -1,6 +1,6 @@
 # Fraction Calculator
 
-Implement a simple calculator for fractions. It supports the four basic operations and then simplifies the result as much as possible. A fraction **must** be stored using a struct.
+Implement a simple calculator for fractions. It supports the four basic operations and then simplifies the result as much as possible.
 
 ## Input
 
