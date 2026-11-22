@@ -12,6 +12,7 @@ Small programs written while learning Rust. Each folder is its own Cargo project
 | [fast_power](fast_power/) | Modular exponentiation, `u64` arithmetic | ✅ | 25/25 |
 | [gcd](gcd/) | Recursion, Euclid-style GCD | ✅ | 25/25 |
 | [good_string](good_string/) | Strings, counting characters, reasoning about a formula | ✅ | 20/20 |
+| [fractions_caclulator](fractions_caclulator/) | Fraction arithmetic, simplification with gcd | ✅ | 3/3 |
 
 ## Testing
 
